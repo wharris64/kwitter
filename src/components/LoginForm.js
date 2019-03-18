@@ -39,6 +39,7 @@ class LoginForm extends Component {
           <button type="submit" disabled={isLoading}>
             Login
           </button>
+          
         </form>
         {isLoading && <Spinner name="circle" color="blue" />}
         {err && <p style={{ color: "red" }}>{err}</p>}

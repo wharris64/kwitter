@@ -32,6 +32,17 @@ const login = loginData => dispatch => {
       );
     });
 };
+const register = registerData => dispatch => {
+  dispatch({
+    type: REGISTER
+  });
+  return fetch(url + '/register', {
+    method: "POST",
+    headers: jsonHeaders,
+    body:JSON.stringify(register.data)
+  
+  })
+}
 
 export const loginThenGoToUserProfile = loginData => dispatch => {
   return dispatch(login(loginData)).then(() => dispatch(push("/profile")));
