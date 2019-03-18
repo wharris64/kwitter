@@ -8,23 +8,27 @@ class register extends Component {
     handleChange = e => {
       this.setState({ [e.target.name]: e.target.value });
     };
-
-    handleRegister = event => {
-      if (
-        this.state.displayName &&
-        this.state.username &&
-        this.state.password === this.state.passwordRepeat
-      ) {
-        console.log("handle was called");
-        this.props.register({
-          username: this.state.username,
-          password: this.state.password,
-          displayName: this.state.displayName
-        });
-      }};
+    handleRegister = event =>{
+      e.preventDefault();
+    this.props.register(this.state);
+  };
+    }
+    // handleRegister = event => {
+    //   if (
+    //     this.state.displayName &&
+    //     this.state.username &&
+    //     this.state.password === this.state.passwordRepeat
+    //   ) {
+    //     console.log("handle was called");
+    //     this.props.register({
+    //       username: this.state.username,
+    //       password: this.state.password,
+    //       displayName: this.state.displayName
+    //     });
+    //   }};
   
   
-    render() {
+    render() 
       const { isLoading, err } = this.props;
       return (
         <React.Fragment>
@@ -62,6 +66,6 @@ class register extends Component {
           {err && <p style={{ color: "red" }}>{err}</p>}
         </React.Fragment>
       );
-    }
-  }
+    
+  
   export default Signup

@@ -42,7 +42,12 @@ const register = registerData => dispatch => {
     body:JSON.stringify(register.data)
   
   })
-}
+  .catch(err =>{
+    return Promise.reject(
+      dispatch({type:REGISTER_FAIL, payload:err.message})
+    );
+  });
+};
 
 export const loginThenGoToUserProfile = loginData => dispatch => {
   return dispatch(login(loginData)).then(() => dispatch(push("/profile")));
