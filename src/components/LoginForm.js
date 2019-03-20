@@ -1,8 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginThenGoToUserProfile as login } from "../actions";
+import { Grid } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import TextField from '@material-ui/core/TextField'
 import Spinner from "react-spinkit";
 import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
+
 
 class LoginForm extends Component {
   state = { username: "", password: "" };
@@ -18,12 +32,16 @@ class LoginForm extends Component {
 
   render() {
     const { isLoading, err } = this.props;
+    const { classes } = this.props;
+
+
     return (
       <React.Fragment>
+        <Grid>
         <h1>Login</h1>
         <form onSubmit={this.handleLogin}>
           <label htmlFor="username">Username</label>
-          <input
+          <TextField
             type="text"
             name="username"
             autoFocus
@@ -31,24 +49,29 @@ class LoginForm extends Component {
             onChange={this.handleChange}
           />
           <label htmlFor="password">Password</label>
-          <input
+          <TextField
             type="password"
             name="password"
             required
             onChange={this.handleChange}
           />
-          <button type="submit" disabled={isLoading}>
+          
+          <Button className={classes.button} type="submit" disabled={isLoading}>
             Login
-          </button>
+          </Button>
+          <Button className={classes.button}  >
           <Link to="/register">Register Here</Link>
+          </Button>
           
         </form>
         {isLoading && <Spinner name="circle" color="blue" />}
         {err && <p style={{ color: "red" }}>{err}</p>}
+        </Grid>
       </React.Fragment>
     );
   }
 }
+
 
 export default connect(
   ({ auth }) => ({
@@ -56,4 +79,4 @@ export default connect(
     err: auth.loginError
   }),
   { login }
-)(LoginForm);
+)(withStyles(styles)(LoginForm));

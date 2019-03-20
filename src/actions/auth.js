@@ -75,7 +75,7 @@ export const register = registerData => dispatch => {
             password: registerData.password
           })
           )
-          .then(() => dispatch(push("/userProfile")))
+          .then(() => dispatch(push("/profile")))
       }
       fixTheRoute();
 
