@@ -5,6 +5,10 @@ import { push } from "connected-react-router";
 export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
+export const REGISTER = "REGISTER";
+export const REGISTER_FAIL = "REGISTER_FAIL"
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
+
 
 const url = domain + "/auth";
 
@@ -32,22 +36,58 @@ const login = loginData => dispatch => {
       );
     });
 };
-const register = registerData => dispatch => {
+export const register = registerData => dispatch => {
+  // dispatch here before fetch
   dispatch({
     type: REGISTER
   });
-  return fetch(url + '/register', {
+
+  fetch(`${url}/auth/register`, {
+  // fetch("https://kwitter-api.herokuapp.com/auth/register", {
     method: "POST",
-    headers: jsonHeaders,
-    body:JSON.stringify(register.data)
-  
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(registerData)
   })
-  .catch(err =>{
-    return Promise.reject(
-      dispatch({type:REGISTER_FAIL, payload:err.message})
-    );
-  });
+    .then(res => {
+      if (!res.ok) {
+        res.json().then(err => {
+          throw err;
+        });
+      }
+
+      return res.json();
+    })
+    .then(data => {
+      // dispatch here on success --
+      dispatch({
+        type: REGISTER_SUCCESS,
+        register: data,
+        result: "Successfully Registered!"
+      });
+
+      async function fixTheRoute() {
+        await dispatch(
+          login({
+            username: registerData.username,
+            password: registerData.password
+          })
+          )
+          .then(() => dispatch(push("/userProfile")))
+      }
+      fixTheRoute();
+
+    })
+    .catch(err => {
+      // dispatch here on fail --
+      dispatch({
+        type: REGISTER_FAIL,
+        result: "Failed to Register!"
+      });
+    });
 };
+
 
 export const loginThenGoToUserProfile = loginData => dispatch => {
   return dispatch(login(loginData)).then(() => dispatch(push("/profile")));

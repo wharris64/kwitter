@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Spinner from "react-spinkit";
 
-class register extends Component {
+class RegisterForm extends Component {
     state = { username: "", password: "", displayName: "" };
   
     handleChange = e => {
@@ -68,4 +68,10 @@ class register extends Component {
       );
     
   
-  export default Signup
+      export default connect(
+        ({ auth }) => ({
+          isLoading: auth.registerLoading,
+          err: auth.registerError
+        }),
+        { register }
+      )(RegisterForm);
