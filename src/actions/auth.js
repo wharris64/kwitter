@@ -36,13 +36,14 @@ const login = loginData => dispatch => {
       );
     });
 };
+
 export const register = registerData => dispatch => {
   // dispatch here before fetch
   dispatch({
     type: REGISTER
   });
 
-  fetch(`${url}/auth/register`, {
+  fetch(url + "/register" , {
   // fetch("https://kwitter-api.herokuapp.com/auth/register", {
     method: "POST",
     headers: {
