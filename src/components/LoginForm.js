@@ -3,18 +3,18 @@ import { connect } from "react-redux";
 import { loginThenGoToUserProfile as login } from "../actions";
 import { Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
 import Spinner from "react-spinkit";
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/Button'
+import loginNav from "./loginNav"
+
+  
 
 const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
+ 
 });
 
 
@@ -36,8 +36,22 @@ class LoginForm extends Component {
 
 
     return (
+      <div>
       <React.Fragment>
-        <Grid>
+      <Grid
+        container
+        justify="center"
+        spacing={16}
+        style={{ marginTop: "10vh" }}
+      >
+        <loginNav logout={this.handleLogout}/>
+      </Grid>
+      </React.Fragment>
+      <React.Fragment>
+
+      
+      <Card className={classes.Paper} >
+      <CardContent>
         <h1>Login</h1>
         <form onSubmit={this.handleLogin}>
           <label htmlFor="username">Username</label>
@@ -66,12 +80,14 @@ class LoginForm extends Component {
         </form>
         {isLoading && <Spinner name="circle" color="blue" />}
         {err && <p style={{ color: "red" }}>{err}</p>}
-        </Grid>
+        </CardContent>
+    </Card>
+        
       </React.Fragment>
+      </div>
     );
   }
 }
-
 
 export default connect(
   ({ auth }) => ({

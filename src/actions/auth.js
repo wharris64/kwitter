@@ -8,11 +8,12 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const REGISTER = "REGISTER";
 export const REGISTER_FAIL = "REGISTER_FAIL"
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
+export const GET_KWEETS = "GET_KWEETS"
 
 
 const url = domain + "/auth";
 
-// action creators
+//login action creators
 const login = loginData => dispatch => {
   dispatch({
     type: LOGIN
@@ -36,7 +37,12 @@ const login = loginData => dispatch => {
       );
     });
 };
+export const loginThenGoToUserProfile = loginData => dispatch => {
+  return dispatch(login(loginData)).then(() => dispatch(push("/profile")));
+};
 
+
+//register actions
 export const register = registerData => dispatch => {
   // dispatch here before fetch
   dispatch({
@@ -89,7 +95,34 @@ export const register = registerData => dispatch => {
     });
 };
 
+export const posKweet = text => (dispatch, getState) => {
+  const token = getState().loginData.token;
+ fetch(url + "/login", {
+    method: "POST",
+    headers: {jsonHeaders,
+      Authorization: "Bearer" + token},
+    body: JSON.stringify({text: text})
+  })
+      .then(response => response.json())
+      .then(kweet => {
+        dispatch(fetchKweets());
+        // dispatch({type: _____})
+      });
+  };
 
-export const loginThenGoToUserProfile = loginData => dispatch => {
-  return dispatch(login(loginData)).then(() => dispatch(push("/profile")));
-};
+  export const fetchKweets = () => dispatch => {
+    fetch(url + "/kweets?limit=10")
+    // fetch("https://kwitter-api.herokuapp.com/messages?limit=10")
+      .then(response => response.json())
+      .then(data => {
+        dispatch(getKweets(data.kweets));
+      });
+  };
+  
+  export const getKweets = kweets => {
+    return {
+      type: GET_KWEETS,
+      kweets
+    };
+  };
+  
