@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import Kweet from "./Kweet";
-import { getMessages, toggleLike } from "../ActionCreators/actions";
+import { getMessages, toggleLike } from "../actions/actions";
 
 const styles = {
   KweetList: {
