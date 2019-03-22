@@ -9,7 +9,7 @@ export const REGISTER = "REGISTER";
 export const REGISTER_FAIL = "REGISTER_FAIL"
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
 export const GET_KWEETS = "GET_KWEETS"
-
+export const LOGOUT_USER = "LOGOUT_USER";
 
 const url = domain + "/auth";
 
@@ -94,7 +94,18 @@ export const register = registerData => dispatch => {
       });
     });
 };
+//logout
+export const logoutUser = () => dispatch => {
+  console.log('fire')
+  dispatch(logoutCurrentUser())
+  dispatch(push("/"))
+}
 
+export const logoutCurrentUser = () => {
+  return {
+    type: LOGOUT_USER
+  }
+}
 export const posKweet = text => (dispatch, getState) => {
   const token = getState().loginData.token;
  fetch(url + "/login", {
@@ -125,4 +136,4 @@ export const posKweet = text => (dispatch, getState) => {
       kweets
     };
   };
-  
+

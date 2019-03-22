@@ -9,7 +9,7 @@ import Spinner from "react-spinkit";
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/Button'
-import loginNav from "./loginNav"
+import LoginNav from "./LoginNav"
 
   
 
@@ -44,7 +44,7 @@ class LoginForm extends Component {
         spacing={16}
         style={{ marginTop: "10vh" }}
       >
-        <loginNav logout={this.handleLogout}/>
+        <LoginNav logout={this.handleLogout}/>
       </Grid>
       </React.Fragment>
       <React.Fragment>

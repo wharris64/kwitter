@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import { connect } from 'react-redux'
+import { logoutUser } from '../actions/'
 import {
   Hidden,
   MenuItem,
@@ -83,9 +84,13 @@ class Navigation extends Component {
               KWITTER
             </Typography>
             <Button
+            variant="contained"
+            color="primary"> <link to "/mainpage"> "Feed"/> </Button>
+            
+            <Button
               variant="contained"
               color="primary"
-              onClick={this.props.logout}
+              onClick={this.props.logoutUser}
             >
               Sign Out
             </Button>
@@ -107,5 +112,13 @@ class Navigation extends Component {
 Navigation.propTypes = {
   classes: PropTypes.object.isRequired
 };
+const mapDispatchToProps = {
+  logoutUser
+};
 
-export default withStyles(styles)(Navigation);
+const NavigationWithStyle = withStyles(styles)(Navigation)
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(NavigationWithStyle)
