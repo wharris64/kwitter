@@ -21,7 +21,7 @@ class UserProfile extends Component {
         style={{ marginTop: "10vh" }}
       >
         <Navigation logout={this.handleLogout}/> 
-        <Link to="/mainpage">Main Page</Link>
+        
       </Grid>
       </React.Fragment>
       <React.Fragment>

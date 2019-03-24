@@ -83,9 +83,7 @@ class Navigation extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               KWITTER
             </Typography>
-            <Button
-            variant="contained"
-            color="primary"> <link to "/mainpage"> "Feed"/> </Button>
+
             
             <Button
               variant="contained"

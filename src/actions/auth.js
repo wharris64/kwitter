@@ -41,7 +41,10 @@ export const loginThenGoToUserProfile = loginData => dispatch => {
   return dispatch(login(loginData)).then(() => dispatch(push("/profile")));
 };
 
-
+//upload image actions
+export const UPLOAD_IMAGE = "UPLOAD_IMAGE"
+export const UPLOAD_IMAGE_SUCCESS = "UPLOAD_IMAGE_SUCCESS";
+export const UPLOAD_IMAGE_FAILURE = "UPLOAD_IMAGE_FAILURE";
 //register actions
 export const register = registerData => dispatch => {
   // dispatch here before fetch
